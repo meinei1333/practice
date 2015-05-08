@@ -1,7 +1,3 @@
-renderer = PIXI.autoDetectRenderer(1000,800, {alpha : 0});
-document.body.appendChild(renderer.view);
-stage = new PIXI.Container();
-
 eventName = require("./eventName.js");
 reelview = require("./view/reelView.js");
 reelMediator = require("./mediator/reelMediator.js");
@@ -9,6 +5,10 @@ leftButtonView = require("./view/leftButtonView.js");
 leftButtonMediator = require("./mediator/leftButtonMediator.js");
 rightButtonView = require("./view/rightButtonView.js");
 rightButtonMediator = require("./mediator/rightButtonMediator.js");
+
+renderer = PIXI.autoDetectRenderer(1000,800, {alpha : 0});
+document.body.appendChild(renderer.view);
+stage = new PIXI.Container();
 
 reelView = new reelView();
 stage.addChild(reelView);

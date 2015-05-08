@@ -44,10 +44,6 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	renderer = PIXI.autoDetectRenderer(1000,800, {alpha : 0});
-	document.body.appendChild(renderer.view);
-	stage = new PIXI.Container();
-
 	eventName = __webpack_require__(1);
 	reelview = __webpack_require__(2);
 	reelMediator = __webpack_require__(3);
@@ -55,6 +51,10 @@
 	leftButtonMediator = __webpack_require__(5);
 	rightButtonView = __webpack_require__(6);
 	rightButtonMediator = __webpack_require__(7);
+
+	renderer = PIXI.autoDetectRenderer(1000,800, {alpha : 0});
+	document.body.appendChild(renderer.view);
+	stage = new PIXI.Container();
 
 	reelView = new reelView();
 	stage.addChild(reelView);
