@@ -15,12 +15,11 @@ reelView.prototype.init = function() {
 	this.endFill();
 }
 
-reelView.resize = function(){
-	console.log("reelView:",reelView.width);
-	if(reelView.width == 100){
-		TweenLite.to(reelView, 1.5, {width:600});
+reelView.prototype.resize = function(){
+	if(this.width == 100){
+		TweenLite.to(this, 1.5, {width:600});
 	}else{
-		TweenLite.to(reelView, 1.5, {width:100});
+		TweenLite.to(this, 1.5, {width:100});
 	}
 }
 

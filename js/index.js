@@ -1,5 +1,5 @@
 eventName = require("./eventName.js");
-reelview = require("./view/reelView.js");
+reelView = require("./view/reelView.js");
 reelMediator = require("./mediator/reelMediator.js");
 leftButtonView = require("./view/leftButtonView.js");
 leftButtonMediator = require("./mediator/leftButtonMediator.js");
@@ -31,7 +31,7 @@ function animate() {
 // application function
 var QuickStartApplication = soma.Application.extend({
    init: function() {
-   		this.mediators.create(reelMediator, reelview);
+   		this.mediators.create(reelMediator, reelView);
     	this.mediators.create(leftButtonMediator, leftBtn);
     	this.mediators.create(rightButtonMediator, rightBtn);
     }
