@@ -49,6 +49,7 @@
 	reelMediator = __webpack_require__(3);
 	leftButtonMediator = __webpack_require__(4);
 	rightButtonMediator = __webpack_require__(5);
+	StartSoma = __webpack_require__(6);
 
 	renderer = PIXI.autoDetectRenderer(1000,800, {alpha : 0});
 	document.body.appendChild(renderer.view);
@@ -58,26 +59,11 @@
 	animate();
 
 	function animate() {
-	    renderer.render(GameUI);
-	    requestAnimationFrame( animate );
+	  renderer.render(GameUI);
+	  requestAnimationFrame( animate );
 	}
 
-	//------------------------------------------------------soma---------------------------------------------------------//
-
-	// application function
-	var QuickStartApplication = soma.Application.extend({
-		//struction
-	   init: function() {
-	   		this.mediators.create(reelMediator, reelView);
-	    	this.mediators.create(leftButtonMediator, leftButtonView);
-	    	this.mediators.create(rightButtonMediator, rightButtonView);
-	    }
-	});
-
-	  // create application
-	var app = new QuickStartApplication();
-
-
+	var app = new StartSoma(GameUI);
 
 /***/ },
 /* 1 */
@@ -92,20 +78,20 @@
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-	reelView = __webpack_require__(6);
-	leftButtonViewR = __webpack_require__(7);
-	rightButtonViewR = __webpack_require__(8);
+	reelView = __webpack_require__(7);
+	leftButtonView = __webpack_require__(8);
+	rightButtonView = __webpack_require__(9);
 
 	GameUI = function() {
 	  PIXI.Sprite.call(this);
-	  
-	  reelView = new reelView();
-	  leftButtonView = new leftButtonView();
-	  rightButtonView = new rightButtonView();
 
-	  this.addChild(reelView);
-	  this.addChild(leftButtonView);
-	  this.addChild(rightButtonView);
+	  this.reelView = new reelView();
+	  this.leftButtonView = new leftButtonView();
+	  this.rightButtonView = new rightButtonView();
+	 
+	  this.addChild(this.reelView);
+	  this.addChild(this.leftButtonView);
+	  this.addChild(this.rightButtonView);
 	};
 
 	GameUI.prototype = Object.create(PIXI.Sprite.prototype);
@@ -184,6 +170,27 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	
+	// application function
+	var StartSoma = soma.Application.extend({
+	  //struction
+	  constructor: function(gameUI) {
+	    this.gameUI = gameUI;
+		  soma.Application.call(this);
+		},
+	  init: function() {
+	   	  this.mediators.create(reelMediator, this.gameUI.reelView);
+	      this.mediators.create(leftButtonMediator, this.gameUI.leftButtonView);
+	      this.mediators.create(rightButtonMediator, this.gameUI.rightButtonView);
+	    }
+	});
+
+	module.exports = StartSoma;
+
+/***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
 	reelView = function() {
 	    PIXI.Graphics.call(this);
 		this.init();
@@ -211,7 +218,7 @@
 	module.exports = reelView;
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var textureButton = PIXI.Texture.fromImage('_assets/button.png');
@@ -293,7 +300,7 @@
 
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var radius = 100;

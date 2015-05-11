@@ -1,17 +1,17 @@
 reelView = require("./view/reelView.js");
-leftButtonViewR = require("./view/leftButtonView.js");
-rightButtonViewR = require("./view/rightButtonView.js");
+leftButtonView = require("./view/leftButtonView.js");
+rightButtonView = require("./view/rightButtonView.js");
 
 GameUI = function() {
   PIXI.Sprite.call(this);
-  
-  reelView = new reelView();
-  leftButtonView = new leftButtonView();
-  rightButtonView = new rightButtonView();
 
-  this.addChild(reelView);
-  this.addChild(leftButtonView);
-  this.addChild(rightButtonView);
+  this.reelView = new reelView();
+  this.leftButtonView = new leftButtonView();
+  this.rightButtonView = new rightButtonView();
+ 
+  this.addChild(this.reelView);
+  this.addChild(this.leftButtonView);
+  this.addChild(this.rightButtonView);
 };
 
 GameUI.prototype = Object.create(PIXI.Sprite.prototype);
