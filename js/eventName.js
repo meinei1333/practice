@@ -1,4 +1,4 @@
 module.exports = {
-  buttonClick:"buttonClick", 
-  reelResize:"reelResize", 
+  BUTTON_CLICK:"BUTTON_CLICK",
+  REEL_RESIZE:"REEL_RESIZE"
 }

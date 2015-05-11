@@ -70,8 +70,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = {
-	  buttonClick:"buttonClick", 
-	  reelResize:"reelResize", 
+	  BUTTON_CLICK:"BUTTON_CLICK",
+	  REEL_RESIZE:"REEL_RESIZE"
 	}
 
 /***/ },
@@ -110,7 +110,7 @@
 	  mc = target;
 	  dis = dispatcher;
 
-	  dispatcher.addEventListener(eventName.reelResize, function(event) {
+	  dispatcher.addEventListener(eventName.REEL_RESIZE, function(event) {
 	    mc.resize();
 	  })
 	}
@@ -130,12 +130,12 @@
 	}
 
 	leftButtonMediator.prototype.initEvent = function(){
-	  mc.on(eventName.buttonClick, onButtonDown)
+	  mc.on(eventName.BUTTON_CLICK, onButtonDown)
 	}
 
 	function onButtonDown()
 	{
-	  dis.dispatch(eventName.reelResize);
+	  dis.dispatch(eventName.REEL_RESIZE);
 	}	
 
 	module.exports = leftButtonMediator;
@@ -154,12 +154,12 @@
 	}
 
 	rightButtonMediator.prototype.initEvent = function(){
-	  mc.on(eventName.buttonClick, onButtonDown)
+	  mc.on(eventName.BUTTON_CLICK, onButtonDown)
 	}
 
 	function onButtonDown()
 	{
-	  dis.dispatch(eventName.reelResize);
+	  dis.dispatch(eventName.REEL_RESIZE);
 	}	
 
 	module.exports = rightButtonMediator;
@@ -249,7 +249,7 @@
 	function onButtonDown()
 	{
 	  this.texture = textureButtonDown;
-	  this.emit(eventName.buttonClick);
+	  this.emit(eventName.BUTTON_CLICK);
 	}
 
 	function onButtonUp()
@@ -338,7 +338,7 @@
 	  this.drawCircle(radius/2, radius/2,radius/2);
 	  this.endFill();
 
-	  this.emit(eventName.buttonClick)
+	  this.emit(eventName.BUTTON_CLICK)
 	}
 
 	function onButtonUp()

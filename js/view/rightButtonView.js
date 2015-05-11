@@ -39,7 +39,7 @@ function onButtonDown()
   this.drawCircle(radius/2, radius/2,radius/2);
   this.endFill();
 
-  this.emit(eventName.buttonClick)
+  this.emit(eventName.BUTTON_CLICK)
 }
 
 function onButtonUp()

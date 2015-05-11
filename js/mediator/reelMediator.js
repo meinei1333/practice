@@ -5,7 +5,7 @@ var reelMediator = function(target, dispatcher) {
   mc = target;
   dis = dispatcher;
 
-  dispatcher.addEventListener(eventName.reelResize, function(event) {
+  dispatcher.addEventListener(eventName.REEL_RESIZE, function(event) {
     mc.resize();
   })
 }

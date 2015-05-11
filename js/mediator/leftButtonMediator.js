@@ -7,12 +7,12 @@ var leftButtonMediator = function(target, dispatcher) {
 }
 
 leftButtonMediator.prototype.initEvent = function(){
-  mc.on(eventName.buttonClick, onButtonDown)
+  mc.on(eventName.BUTTON_CLICK, onButtonDown)
 }
 
 function onButtonDown()
 {
-  dis.dispatch(eventName.reelResize);
+  dis.dispatch(eventName.REEL_RESIZE);
 }	
 
 module.exports = leftButtonMediator;
