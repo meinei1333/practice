@@ -7,9 +7,9 @@ var StartSoma = soma.Application.extend({
     soma.Application.call(this);
   },
   init: function() {
-   	  this.mediators.create(reelMediator, this.gameUI.reelView);
-      this.mediators.create(leftButtonMediator, this.gameUI.leftButtonView);
-      this.mediators.create(rightButtonMediator, this.gameUI.rightButtonView);
+   	  this.mediators.create(ReelMediator, this.gameUI.ReelView);
+      this.mediators.create(LeftButtonMediator, this.gameUI.LeftButtonView);
+      this.mediators.create(RightButtonMediator, this.gameUI.RightButtonView);
     }
 });
 

@@ -2,15 +2,15 @@ var textureButton = PIXI.Texture.fromImage('_assets/button.png');
 var textureButtonDown = PIXI.Texture.fromImage('_assets/buttonDown.png');
 var textureButtonOver = PIXI.Texture.fromImage('_assets/buttonOver.png');
 
-leftButtonView = function() {
+LeftButtonView = function() {
   PIXI.Sprite.call(this,textureButton);
   this.init();
 }
 
-leftButtonView.prototype = Object.create(PIXI.Sprite.prototype);
-leftButtonView.prototype.constructor = leftButtonView;
+LeftButtonView.prototype = Object.create(PIXI.Sprite.prototype);
+LeftButtonView.prototype.constructor = LeftButtonView;
 	
-leftButtonView.prototype.init = function() {
+LeftButtonView.prototype.init = function() {
   this.y = 550;
   this.buttonMode = true;
   this.interactive = true;
@@ -29,7 +29,7 @@ leftButtonView.prototype.init = function() {
 function onButtonDown()
 {
   this.texture = textureButtonDown;
-  this.emit(eventName.BUTTON_CLICK);
+  this.emit(EventName.BUTTON_CLICK);
 }
 
 function onButtonUp()
@@ -70,4 +70,4 @@ function onButtonOut()
   this.texture = textureButton;
 }
 
-module.exports = leftButtonView;
+module.exports = LeftButtonView;

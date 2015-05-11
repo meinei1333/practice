@@ -44,11 +44,11 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	eventName = __webpack_require__(1);
+	EventName = __webpack_require__(1);
 	GameUI = __webpack_require__(2);
-	reelMediator = __webpack_require__(3);
-	leftButtonMediator = __webpack_require__(4);
-	rightButtonMediator = __webpack_require__(5);
+	ReelMediator = __webpack_require__(3);
+	LeftButtonMediator = __webpack_require__(4);
+	RightButtonMediator = __webpack_require__(5);
 	StartSoma = __webpack_require__(6);
 
 	renderer = PIXI.autoDetectRenderer(1000,800, {alpha : 0});
@@ -78,20 +78,20 @@
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-	reelView = __webpack_require__(7);
-	leftButtonView = __webpack_require__(8);
-	rightButtonView = __webpack_require__(9);
+	ReelView = __webpack_require__(7);
+	LeftButtonView = __webpack_require__(8);
+	RightButtonView = __webpack_require__(9);
 
 	GameUI = function() {
 	  PIXI.Sprite.call(this);
 
-	  this.reelView = new reelView();
-	  this.leftButtonView = new leftButtonView();
-	  this.rightButtonView = new rightButtonView();
+	  this.ReelView = new ReelView();
+	  this.LeftButtonView = new LeftButtonView();
+	  this.RightButtonView = new RightButtonView();
 	 
-	  this.addChild(this.reelView);
-	  this.addChild(this.leftButtonView);
-	  this.addChild(this.rightButtonView);
+	  this.addChild(this.ReelView);
+	  this.addChild(this.LeftButtonView);
+	  this.addChild(this.RightButtonView);
 	};
 
 	GameUI.prototype = Object.create(PIXI.Sprite.prototype);
@@ -106,16 +106,16 @@
 	var dis;
 	var mc;
 
-	var reelMediator = function(target, dispatcher) {
+	var ReelMediator = function(target, dispatcher) {
 	  mc = target;
 	  dis = dispatcher;
 
-	  dispatcher.addEventListener(eventName.REEL_RESIZE, function(event) {
+	  dispatcher.addEventListener(EventName.REEL_RESIZE, function(event) {
 	    mc.resize();
 	  })
 	}
 
-	module.exports = reelMediator;
+	module.exports = ReelMediator;
 
 /***/ },
 /* 4 */
@@ -123,22 +123,22 @@
 
 	var mc;
 	var dis;
-	var leftButtonMediator = function(target, dispatcher) {
+	var LeftButtonMediator = function(target, dispatcher) {
 	  mc = target;
 	  dis = dispatcher;
 	  this.initEvent();
 	}
 
-	leftButtonMediator.prototype.initEvent = function(){
-	  mc.on(eventName.BUTTON_CLICK, onButtonDown)
+	LeftButtonMediator.prototype.initEvent = function(){
+	  mc.on(EventName.BUTTON_CLICK, onButtonDown)
 	}
 
 	function onButtonDown()
 	{
-	  dis.dispatch(eventName.REEL_RESIZE);
+	  dis.dispatch(EventName.REEL_RESIZE);
 	}	
 
-	module.exports = leftButtonMediator;
+	module.exports = LeftButtonMediator;
 
 /***/ },
 /* 5 */
@@ -147,22 +147,22 @@
 	var mc;
 	var dis;
 
-	var rightButtonMediator = function(target, dispatcher) {
+	var RightButtonMediator = function(target, dispatcher) {
 	  mc = target;
 	  dis = dispatcher;
 	  this.initEvent();
 	}
 
-	rightButtonMediator.prototype.initEvent = function(){
-	  mc.on(eventName.BUTTON_CLICK, onButtonDown)
+	RightButtonMediator.prototype.initEvent = function(){
+	  mc.on(EventName.BUTTON_CLICK, onButtonDown)
 	}
 
 	function onButtonDown()
 	{
-	  dis.dispatch(eventName.REEL_RESIZE);
+	  dis.dispatch(EventName.REEL_RESIZE);
 	}	
 
-	module.exports = rightButtonMediator;
+	module.exports = RightButtonMediator;
 
 /***/ },
 /* 6 */
@@ -177,9 +177,9 @@
 	    soma.Application.call(this);
 	  },
 	  init: function() {
-	   	  this.mediators.create(reelMediator, this.gameUI.reelView);
-	      this.mediators.create(leftButtonMediator, this.gameUI.leftButtonView);
-	      this.mediators.create(rightButtonMediator, this.gameUI.rightButtonView);
+	   	  this.mediators.create(ReelMediator, this.gameUI.ReelView);
+	      this.mediators.create(LeftButtonMediator, this.gameUI.LeftButtonView);
+	      this.mediators.create(RightButtonMediator, this.gameUI.RightButtonView);
 	    }
 	});
 
@@ -189,22 +189,22 @@
 /* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
-	reelView = function() {
+	ReelView = function() {
 	  PIXI.Graphics.call(this);
 	  this.init();
 	}
 
-	reelView.prototype = Object.create(PIXI.Graphics.prototype);
-	reelView.prototype.constructor = reelView;
+	ReelView.prototype = Object.create(PIXI.Graphics.prototype);
+	ReelView.prototype.constructor = ReelView;
 
-	reelView.prototype.init = function() {
+	ReelView.prototype.init = function() {
 	  this.lineStyle(2, 0xFF00FF, 1);
 	  this.beginFill(0xFF00BB, 0.25);
 	  this.drawRoundedRect(0, 0, 600, 500, 10);
 	  this.endFill();
 	}
 
-	reelView.prototype.resize = function(){
+	ReelView.prototype.resize = function(){
 	  if(this.width == 100){
 	    TweenLite.to(this, 1.5, {width:600});
 	  }else{
@@ -212,7 +212,7 @@
 	  }
 	}
 
-	module.exports = reelView;
+	module.exports = ReelView;
 
 /***/ },
 /* 8 */
@@ -222,15 +222,15 @@
 	var textureButtonDown = PIXI.Texture.fromImage('_assets/buttonDown.png');
 	var textureButtonOver = PIXI.Texture.fromImage('_assets/buttonOver.png');
 
-	leftButtonView = function() {
+	LeftButtonView = function() {
 	  PIXI.Sprite.call(this,textureButton);
 	  this.init();
 	}
 
-	leftButtonView.prototype = Object.create(PIXI.Sprite.prototype);
-	leftButtonView.prototype.constructor = leftButtonView;
+	LeftButtonView.prototype = Object.create(PIXI.Sprite.prototype);
+	LeftButtonView.prototype.constructor = LeftButtonView;
 		
-	leftButtonView.prototype.init = function() {
+	LeftButtonView.prototype.init = function() {
 	  this.y = 550;
 	  this.buttonMode = true;
 	  this.interactive = true;
@@ -249,7 +249,7 @@
 	function onButtonDown()
 	{
 	  this.texture = textureButtonDown;
-	  this.emit(eventName.BUTTON_CLICK);
+	  this.emit(EventName.BUTTON_CLICK);
 	}
 
 	function onButtonUp()
@@ -290,7 +290,7 @@
 	  this.texture = textureButton;
 	}
 
-	module.exports = leftButtonView;
+	module.exports = LeftButtonView;
 
 
 /***/ },
@@ -299,15 +299,15 @@
 
 	var radius = 100;
 
-	rightButtonView = function() {
+	RightButtonView = function() {
 	  PIXI.Graphics.call(this);
 	  this.init();
 	}
 
-	rightButtonView.prototype = Object.create(PIXI.Graphics.prototype);
-	rightButtonView.prototype.constructor = rightButtonView;
+	RightButtonView.prototype = Object.create(PIXI.Graphics.prototype);
+	RightButtonView.prototype.constructor = RightButtonView;
 		
-	rightButtonView.prototype.init = function() {
+	RightButtonView.prototype.init = function() {
 	  this.lineStyle(0);
 	  this.beginFill(0xFFFF0B, 0.5);
 	  this.drawCircle(radius/2, radius/2,radius/2);
@@ -338,7 +338,7 @@
 	  this.drawCircle(radius/2, radius/2,radius/2);
 	  this.endFill();
 
-	  this.emit(eventName.BUTTON_CLICK)
+	  this.emit(EventName.BUTTON_CLICK)
 	}
 
 	function onButtonUp()
@@ -368,7 +368,7 @@
 	  this.endFill();
 	}
 
-	module.exports = rightButtonView;
+	module.exports = RightButtonView;
 
 
 /***/ }

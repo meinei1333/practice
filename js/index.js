@@ -1,8 +1,8 @@
-eventName = require("./eventName.js");
+EventName = require("./EventName.js");
 GameUI = require("./GameUI.js");
-reelMediator = require("./mediator/reelMediator.js");
-leftButtonMediator = require("./mediator/leftButtonMediator.js");
-rightButtonMediator = require("./mediator/rightButtonMediator.js");
+ReelMediator = require("./mediator/ReelMediator.js");
+LeftButtonMediator = require("./mediator/LeftButtonMediator.js");
+RightButtonMediator = require("./mediator/RightButtonMediator.js");
 StartSoma = require("./StartSoma.js");
 
 renderer = PIXI.autoDetectRenderer(1000,800, {alpha : 0});

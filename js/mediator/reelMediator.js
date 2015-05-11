@@ -1,13 +1,13 @@
 var dis;
 var mc;
 
-var reelMediator = function(target, dispatcher) {
+var ReelMediator = function(target, dispatcher) {
   mc = target;
   dis = dispatcher;
 
-  dispatcher.addEventListener(eventName.REEL_RESIZE, function(event) {
+  dispatcher.addEventListener(EventName.REEL_RESIZE, function(event) {
     mc.resize();
   })
 }
 
-module.exports = reelMediator;
+module.exports = ReelMediator;

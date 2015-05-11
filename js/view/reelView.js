@@ -1,19 +1,19 @@
-reelView = function() {
+ReelView = function() {
   PIXI.Graphics.call(this);
   this.init();
 }
 
-reelView.prototype = Object.create(PIXI.Graphics.prototype);
-reelView.prototype.constructor = reelView;
+ReelView.prototype = Object.create(PIXI.Graphics.prototype);
+ReelView.prototype.constructor = ReelView;
 
-reelView.prototype.init = function() {
+ReelView.prototype.init = function() {
   this.lineStyle(2, 0xFF00FF, 1);
   this.beginFill(0xFF00BB, 0.25);
   this.drawRoundedRect(0, 0, 600, 500, 10);
   this.endFill();
 }
 
-reelView.prototype.resize = function(){
+ReelView.prototype.resize = function(){
   if(this.width == 100){
     TweenLite.to(this, 1.5, {width:600});
   }else{
@@ -21,4 +21,4 @@ reelView.prototype.resize = function(){
   }
 }
 
-module.exports = reelView;
+module.exports = ReelView;

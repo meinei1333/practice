@@ -1,14 +1,14 @@
 var radius = 100;
 
-rightButtonView = function() {
+RightButtonView = function() {
   PIXI.Graphics.call(this);
   this.init();
 }
 
-rightButtonView.prototype = Object.create(PIXI.Graphics.prototype);
-rightButtonView.prototype.constructor = rightButtonView;
+RightButtonView.prototype = Object.create(PIXI.Graphics.prototype);
+RightButtonView.prototype.constructor = RightButtonView;
 	
-rightButtonView.prototype.init = function() {
+RightButtonView.prototype.init = function() {
   this.lineStyle(0);
   this.beginFill(0xFFFF0B, 0.5);
   this.drawCircle(radius/2, radius/2,radius/2);
@@ -39,7 +39,7 @@ function onButtonDown()
   this.drawCircle(radius/2, radius/2,radius/2);
   this.endFill();
 
-  this.emit(eventName.BUTTON_CLICK)
+  this.emit(EventName.BUTTON_CLICK)
 }
 
 function onButtonUp()
@@ -69,4 +69,4 @@ function onButtonOut()
   this.endFill();
 }
 
-module.exports = rightButtonView;
+module.exports = RightButtonView;
