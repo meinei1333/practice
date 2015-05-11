@@ -3,20 +3,19 @@ var textureButtonDown = PIXI.Texture.fromImage('_assets/buttonDown.png');
 var textureButtonOver = PIXI.Texture.fromImage('_assets/buttonOver.png');
 
 leftButtonView = function() {
-    PIXI.Sprite.call(this,textureButton);
-
-    this.init();
-};
+  PIXI.Sprite.call(this,textureButton);
+  this.init();
+}
 
 leftButtonView.prototype = Object.create(PIXI.Sprite.prototype);
 leftButtonView.prototype.constructor = leftButtonView;
 	
 leftButtonView.prototype.init = function() {
-	this.y = 550;
-	this.buttonMode = true;
-    this.interactive = true;
+  this.y = 550;
+  this.buttonMode = true;
+  this.interactive = true;
 	
-	this
+  this
     .on('mouseup', onButtonUp)
     .on('touchend', onButtonUp)
     .on('mouseupoutside', onButtonUp)
@@ -29,48 +28,46 @@ leftButtonView.prototype.init = function() {
 
 function onButtonDown()
 {
-    this.texture = textureButtonDown;
-    this.emit(eventName.buttonClick);
+  this.texture = textureButtonDown;
+  this.emit(eventName.buttonClick);
 }
 
 function onButtonUp()
 {
-    this.isdown = false;
+  this.isdown = false;
 
-    if (this.isOver)
-    {
-        this.texture = textureButtonOver;
-    }
-    else
-    {
-        this.texture = textureButton;
-    }
+  if (this.isOver)
+  {
+    this.texture = textureButtonOver;
+  }
+  else
+  {
+    this.texture = textureButton;
+  }
 }
 
 function onButtonOver()
 {
-    this.isOver = true;
+  this.isOver = true;
 
-    if (this.isdown)
-    {
-        return;
-    }
+  if (this.isdown)
+  {
+    return;
+  }
 
-    this.texture = textureButtonOver;
+  this.texture = textureButtonOver;
 }
 
 function onButtonOut()
 {
-    this.isOver = false;
+  this.isOver = false;
 
-    if (this.isdown)
-    {
-        return;
-    }
+  if (this.isdown)
+  {
+    return;
+  }
 
-    this.texture = textureButton;
+  this.texture = textureButton;
 }
-
-
 
 module.exports = leftButtonView;

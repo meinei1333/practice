@@ -1,4 +1,4 @@
 module.exports = {
-	buttonClick:"buttonClick", 
-	reelResize:"reelResize", 
-};
+  buttonClick:"buttonClick", 
+  reelResize:"reelResize", 
+}
