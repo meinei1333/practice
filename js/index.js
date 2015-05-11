@@ -1,28 +1,18 @@
 eventName = require("./eventName.js");
-reelView = require("./view/reelView.js");
+GameUI = require("./GameUI.js");
 reelMediator = require("./mediator/reelMediator.js");
-leftButtonView = require("./view/leftButtonView.js");
 leftButtonMediator = require("./mediator/leftButtonMediator.js");
-rightButtonView = require("./view/rightButtonView.js");
 rightButtonMediator = require("./mediator/rightButtonMediator.js");
 
 renderer = PIXI.autoDetectRenderer(1000,800, {alpha : 0});
 document.body.appendChild(renderer.view);
-stage = new PIXI.Container();
 
-reelView = new reelView();
-stage.addChild(reelView);
-
-var leftBtn = new leftButtonView();
-stage.addChild(leftBtn);
-
-var rightBtn = new rightButtonView();
-stage.addChild(rightBtn);
+GameUI = new GameUI();
 
 animate();
 
 function animate() {
-    renderer.render(stage);
+    renderer.render(GameUI);
     requestAnimationFrame( animate );
 }
 
@@ -30,10 +20,11 @@ function animate() {
 
 // application function
 var QuickStartApplication = soma.Application.extend({
+	//struction
    init: function() {
    		this.mediators.create(reelMediator, reelView);
-    	this.mediators.create(leftButtonMediator, leftBtn);
-    	this.mediators.create(rightButtonMediator, rightBtn);
+    	this.mediators.create(leftButtonMediator, leftButtonView);
+    	this.mediators.create(rightButtonMediator, rightButtonView);
     }
 });
 

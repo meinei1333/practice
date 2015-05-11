@@ -30,7 +30,7 @@ leftButtonView.prototype.init = function() {
 function onButtonDown()
 {
     this.texture = textureButtonDown;
-    this.emit(eventName.buttonClick)
+    this.emit(eventName.buttonClick);
 }
 
 function onButtonUp()

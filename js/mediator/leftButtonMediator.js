@@ -13,7 +13,6 @@ leftButtonMediator.prototype.initEvent = function(){
 
 function onButtonDown()
 {
-    console.log("onButtonDown");
     dis.dispatch(eventName.reelResize);
 }	
 

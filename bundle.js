@@ -45,30 +45,20 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	eventName = __webpack_require__(1);
-	reelview = __webpack_require__(2);
+	GameUI = __webpack_require__(2);
 	reelMediator = __webpack_require__(3);
-	leftButtonView = __webpack_require__(4);
-	leftButtonMediator = __webpack_require__(5);
-	rightButtonView = __webpack_require__(6);
-	rightButtonMediator = __webpack_require__(7);
+	leftButtonMediator = __webpack_require__(4);
+	rightButtonMediator = __webpack_require__(5);
 
 	renderer = PIXI.autoDetectRenderer(1000,800, {alpha : 0});
 	document.body.appendChild(renderer.view);
-	stage = new PIXI.Container();
 
-	reelView = new reelView();
-	stage.addChild(reelView);
-
-	var leftBtn = new leftButtonView();
-	stage.addChild(leftBtn);
-
-	var rightBtn = new rightButtonView();
-	stage.addChild(rightBtn);
+	GameUI = new GameUI();
 
 	animate();
 
 	function animate() {
-	    renderer.render(stage);
+	    renderer.render(GameUI);
 	    requestAnimationFrame( animate );
 	}
 
@@ -76,10 +66,11 @@
 
 	// application function
 	var QuickStartApplication = soma.Application.extend({
+		//struction
 	   init: function() {
-	   		this.mediators.create(reelMediator, reelview);
-	    	this.mediators.create(leftButtonMediator, leftBtn);
-	    	this.mediators.create(rightButtonMediator, rightBtn);
+	   		this.mediators.create(reelMediator, reelView);
+	    	this.mediators.create(leftButtonMediator, leftButtonView);
+	    	this.mediators.create(rightButtonMediator, rightButtonView);
 	    }
 	});
 
@@ -101,33 +92,26 @@
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-	
-	reelView = function() {
-	    PIXI.Graphics.call(this);
-		this.init();
+	reelView = __webpack_require__(6);
+	leftButtonViewR = __webpack_require__(7);
+	rightButtonViewR = __webpack_require__(8);
+
+	GameUI = function() {
+	  PIXI.Sprite.call(this);
+	  
+	  reelView = new reelView();
+	  leftButtonView = new leftButtonView();
+	  rightButtonView = new rightButtonView();
+
+	  this.addChild(reelView);
+	  this.addChild(leftButtonView);
+	  this.addChild(rightButtonView);
 	};
 
-	reelView.prototype = Object.create(PIXI.Graphics.prototype);
-	reelView.prototype.constructor = reelView;
+	GameUI.prototype = Object.create(PIXI.Sprite.prototype);
+	GameUI.prototype.constructor = GameUI;
 
-	reelView.prototype.init = function() {
-		//console.log("this:",this)
-		this.lineStyle(2, 0xFF00FF, 1);
-		this.beginFill(0xFF00BB, 0.25);
-		this.drawRoundedRect(0, 0, 600, 500, 10);
-		this.endFill();
-	}
-
-	reelView.resize = function(){
-		console.log("reelView:",reelView.width);
-		if(reelView.width == 100){
-			TweenLite.to(reelView, 1.5, {width:600});
-		}else{
-			TweenLite.to(reelView, 1.5, {width:100});
-		}
-	}
-
-	module.exports = reelView;
+	module.exports = GameUI;
 
 /***/ },
 /* 3 */
@@ -149,6 +133,85 @@
 
 /***/ },
 /* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
+	var mc;
+	var dis;
+	var leftButtonMediator = function(target, dispatcher) {
+		mc = target;
+		dis = dispatcher;
+		this.initEvent();
+	}
+
+	leftButtonMediator.prototype.initEvent = function(){
+	    mc.on(eventName.buttonClick, onButtonDown)
+	}
+
+	function onButtonDown()
+	{
+	    dis.dispatch(eventName.reelResize);
+	}	
+
+	module.exports = leftButtonMediator;
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
+	var mc;
+	var dis;
+	var rightButtonMediator = function(target, dispatcher) {
+		mc = target;
+		dis = dispatcher;
+		this.initEvent();
+	}
+
+	rightButtonMediator.prototype.initEvent = function(){
+	    mc.on(eventName.buttonClick, onButtonDown)
+	}
+
+	function onButtonDown()
+	{
+	    dis.dispatch(eventName.reelResize);
+	}	
+
+	module.exports = rightButtonMediator;
+
+/***/ },
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
+	reelView = function() {
+	    PIXI.Graphics.call(this);
+		this.init();
+	};
+
+	reelView.prototype = Object.create(PIXI.Graphics.prototype);
+	reelView.prototype.constructor = reelView;
+
+	reelView.prototype.init = function() {
+		//console.log("this:",this)
+		this.lineStyle(2, 0xFF00FF, 1);
+		this.beginFill(0xFF00BB, 0.25);
+		this.drawRoundedRect(0, 0, 600, 500, 10);
+		this.endFill();
+	}
+
+	reelView.prototype.resize = function(){
+		if(this.width == 100){
+			TweenLite.to(this, 1.5, {width:600});
+		}else{
+			TweenLite.to(this, 1.5, {width:100});
+		}
+	}
+
+	module.exports = reelView;
+
+/***/ },
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var textureButton = PIXI.Texture.fromImage('_assets/button.png');
@@ -183,7 +246,7 @@
 	function onButtonDown()
 	{
 	    this.texture = textureButtonDown;
-	    this.emit(eventName.buttonClick)
+	    this.emit(eventName.buttonClick);
 	}
 
 	function onButtonUp()
@@ -230,32 +293,7 @@
 
 
 /***/ },
-/* 5 */
-/***/ function(module, exports, __webpack_require__) {
-
-	
-	var mc;
-	var dis;
-	var leftButtonMediator = function(target, dispatcher) {
-		mc = target;
-		dis = dispatcher;
-		this.initEvent();
-	}
-
-	leftButtonMediator.prototype.initEvent = function(){
-	    mc.on(eventName.buttonClick, onButtonDown)
-	}
-
-	function onButtonDown()
-	{
-	    console.log("onButtonDown");
-	    dis.dispatch(eventName.reelResize);
-	}	
-
-	module.exports = leftButtonMediator;
-
-/***/ },
-/* 6 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var radius = 100;
@@ -333,31 +371,6 @@
 
 	module.exports = rightButtonView;
 
-
-/***/ },
-/* 7 */
-/***/ function(module, exports, __webpack_require__) {
-
-	
-	var mc;
-	var dis;
-	var rightButtonMediator = function(target, dispatcher) {
-		mc = target;
-		dis = dispatcher;
-		this.initEvent();
-	}
-
-	rightButtonMediator.prototype.initEvent = function(){
-	    mc.on(eventName.buttonClick, onButtonDown)
-	}
-
-	function onButtonDown()
-	{
-	    console.log("onButtonDown");
-	    dis.dispatch(eventName.reelResize);
-	}	
-
-	module.exports = rightButtonMediator;
 
 /***/ }
 /******/ ]);
