@@ -1,3 +1,4 @@
+var EventName = require("../EventName");
 var radius = 100;
 
 RightButtonView = function() {

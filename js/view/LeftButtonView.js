@@ -1,3 +1,5 @@
+var EventName = require("../EventName");
+
 var textureButton = PIXI.Texture.fromImage('_assets/button.png');
 var textureButtonDown = PIXI.Texture.fromImage('_assets/buttonDown.png');
 var textureButtonOver = PIXI.Texture.fromImage('_assets/buttonOver.png');

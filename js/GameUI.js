@@ -1,6 +1,6 @@
-ReelView = require("./view/ReelView");
-LeftButtonView = require("./view/LeftButtonView");
-RightButtonView = require("./view/RightButtonView");
+var ReelView = require("./view/ReelView");
+var LeftButtonView = require("./view/LeftButtonView");
+var RightButtonView = require("./view/RightButtonView");
 
 GameUI = function() {
   PIXI.Sprite.call(this);

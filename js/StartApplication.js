@@ -1,4 +1,7 @@
-
+var EventName = require("./EventName");
+var ReelMediator = require("./mediator/ReelMediator");
+var LeftButtonMediator = require("./mediator/LeftButtonMediator");
+var RightButtonMediator = require("./mediator/RightButtonMediator");
 // application function
 var StartApplication = soma.Application.extend({
   //struction

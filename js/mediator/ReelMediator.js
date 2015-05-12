@@ -1,3 +1,5 @@
+var EventName = require("../EventName");
+
 var dis;
 var mc;
 
