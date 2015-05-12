@@ -1,9 +1,10 @@
-EventName = require("./EventName.js");
+EventName = require("./EventName");
 GameUI = require("./GameUI.js");
 ReelMediator = require("./mediator/ReelMediator.js");
 LeftButtonMediator = require("./mediator/LeftButtonMediator.js");
 RightButtonMediator = require("./mediator/RightButtonMediator.js");
-StartSoma = require("./StartSoma.js");
+StartApplication = require("./StartApplication.js");
+require("../Background.css");
 
 renderer = PIXI.autoDetectRenderer(1000,800, {alpha : 0});
 document.body.appendChild(renderer.view);
@@ -17,4 +18,4 @@ function animate() {
   requestAnimationFrame( animate );
 }
 
-var app = new StartSoma(GameUI);
+var app = new StartApplication(GameUI);

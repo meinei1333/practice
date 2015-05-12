@@ -1,6 +1,6 @@
 
 // application function
-var StartSoma = soma.Application.extend({
+var StartApplication = soma.Application.extend({
   //struction
   constructor: function(gameUI) {
     this.gameUI = gameUI;
@@ -13,4 +13,4 @@ var StartSoma = soma.Application.extend({
     }
 });
 
-module.exports = StartSoma;
+module.exports = StartApplication;
