@@ -3,18 +3,18 @@ var mc;
 var dis;
 
 var RightButtonMediator = function(target, dispatcher) {
-  mc = target;
-  dis = dispatcher;
+  this.target = target;
+  this.dispatcher = dispatcher;
   this.initEvent();
 }
 
 RightButtonMediator.prototype.initEvent = function(){
-  mc.on(EventName.BUTTON_CLICK, onButtonDown)
+  this.target.on(EventName.BUTTON_CLICK, onButtonDown.bind(this));
 }
 
 function onButtonDown()
 {
-  dis.dispatch(EventName.REEL_RESIZE);
+  this.dispatcher.dispatch(EventName.REEL_RESIZE);
 }	
 
 module.exports = RightButtonMediator;

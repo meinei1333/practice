@@ -66,9 +66,9 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ReelView = __webpack_require__(7);
-	var LeftButtonView = __webpack_require__(8);
-	var RightButtonView = __webpack_require__(9);
+	var ReelView = __webpack_require__(3);
+	var LeftButtonView = __webpack_require__(4);
+	var RightButtonView = __webpack_require__(5);
 
 	GameUI = function() {
 	  PIXI.Sprite.call(this);
@@ -91,10 +91,10 @@
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var EventName = __webpack_require__(3);
-	var ReelMediator = __webpack_require__(4);
-	var LeftButtonMediator = __webpack_require__(5);
-	var RightButtonMediator = __webpack_require__(6);
+	var EventName = __webpack_require__(6);
+	var ReelMediator = __webpack_require__(7);
+	var LeftButtonMediator = __webpack_require__(8);
+	var RightButtonMediator = __webpack_require__(9);
 	// application function
 	var StartApplication = soma.Application.extend({
 	  //struction
@@ -113,84 +113,6 @@
 
 /***/ },
 /* 3 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = {
-	  BUTTON_CLICK:"BUTTON_CLICK",
-	  REEL_RESIZE:"REEL_RESIZE"
-	}
-
-/***/ },
-/* 4 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var EventName = __webpack_require__(3);
-
-	var dis;
-	var mc;
-
-	var ReelMediator = function(target, dispatcher) {
-	  mc = target;
-	  dis = dispatcher;
-
-	  dispatcher.addEventListener(EventName.REEL_RESIZE, function(event) {
-	    mc.resize();
-	  })
-	}
-
-	module.exports = ReelMediator;
-
-/***/ },
-/* 5 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var EventName = __webpack_require__(3);
-	var mc;
-	var dis;
-	var LeftButtonMediator = function(target, dispatcher) {
-	  mc = target;
-	  dis = dispatcher;
-	  this.initEvent();
-	}
-
-	LeftButtonMediator.prototype.initEvent = function(){
-	  mc.on(EventName.BUTTON_CLICK, onButtonDown)
-	}
-
-	function onButtonDown()
-	{
-	  dis.dispatch(EventName.REEL_RESIZE);
-	}	
-
-	module.exports = LeftButtonMediator;
-
-/***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var EventName = __webpack_require__(3);
-	var mc;
-	var dis;
-
-	var RightButtonMediator = function(target, dispatcher) {
-	  mc = target;
-	  dis = dispatcher;
-	  this.initEvent();
-	}
-
-	RightButtonMediator.prototype.initEvent = function(){
-	  mc.on(EventName.BUTTON_CLICK, onButtonDown)
-	}
-
-	function onButtonDown()
-	{
-	  dis.dispatch(EventName.REEL_RESIZE);
-	}	
-
-	module.exports = RightButtonMediator;
-
-/***/ },
-/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	ReelView = function() {
@@ -219,10 +141,10 @@
 	module.exports = ReelView;
 
 /***/ },
-/* 8 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var EventName = __webpack_require__(3);
+	var EventName = __webpack_require__(6);
 
 	var textureButton = PIXI.Texture.fromImage('_assets/button.png');
 	var textureButtonDown = PIXI.Texture.fromImage('_assets/buttonDown.png');
@@ -300,10 +222,10 @@
 
 
 /***/ },
-/* 9 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var EventName = __webpack_require__(3);
+	var EventName = __webpack_require__(6);
 	var radius = 100;
 
 	RightButtonView = function() {
@@ -377,6 +299,86 @@
 
 	module.exports = RightButtonView;
 
+
+/***/ },
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = {
+	  BUTTON_CLICK:"BUTTON_CLICK",
+	  REEL_RESIZE:"REEL_RESIZE"
+	}
+
+/***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var EventName = __webpack_require__(6);
+
+	var ReelMediator = function(target, dispatcher) {
+	  this.target = target;
+	  this.dispatcher = dispatcher;
+
+	  dispatcher.addEventListener(EventName.REEL_RESIZE, doResize.bind(this));
+	}
+
+	function doResize(){
+	  this.target.resize();
+	}
+
+	module.exports = ReelMediator;
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var EventName = __webpack_require__(6);
+
+	var LeftButtonMediator = function(target, dispatcher) {
+	  this.target = target;
+	  this.dispatcher = dispatcher; 
+	  this.initEvent();
+	}
+
+	LeftButtonMediator.prototype.initEvent = function(){
+	  this.target.on(EventName.BUTTON_CLICK, onButtonDown.bind(this))
+	}
+
+	function onButtonDown()
+	{
+	  this.dispatcher.dispatch(EventName.REEL_RESIZE);
+	}	
+
+	function getDispatcher() { 
+	  return this.dispatcher; 
+	}
+
+	module.exports = LeftButtonMediator;
+
+/***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var EventName = __webpack_require__(6);
+	var mc;
+	var dis;
+
+	var RightButtonMediator = function(target, dispatcher) {
+	  this.target = target;
+	  this.dispatcher = dispatcher;
+	  this.initEvent();
+	}
+
+	RightButtonMediator.prototype.initEvent = function(){
+	  this.target.on(EventName.BUTTON_CLICK, onButtonDown.bind(this));
+	}
+
+	function onButtonDown()
+	{
+	  this.dispatcher.dispatch(EventName.REEL_RESIZE);
+	}	
+
+	module.exports = RightButtonMediator;
 
 /***/ },
 /* 10 */
