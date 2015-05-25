@@ -6,7 +6,7 @@ var browserSync = require('browser-sync').create();
 gulp.task('webpack', function() {
   console.log("gulpfile webpack")
   return gulp
-    .src("./js/index.js")
+    .src("./ls/index.ls")
     .pipe(webpack(config))
 	.pipe(gulp.dest('./'));
 
@@ -26,8 +26,8 @@ gulp.task('browser-sync',['webpack'], function() {
 })
 
 gulp.task('test',['webpack','browser-sync'], function() {
-  gulp.watch('./js/*/*.js', ['webpack']);
-  gulp.watch('./js/*.js', ['webpack']);
+  gulp.watch('./ls/*/*.ls', ['webpack']);
+  gulp.watch('./ls/*.ls', ['webpack']);
   browserSync.watch("index.html").on("change", browserSync.reload);
   browserSync.watch("bundle.js").on("change", browserSync.reload);
 
