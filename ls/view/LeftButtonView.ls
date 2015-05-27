@@ -1,48 +1,42 @@
-EventName = require \../EventName.ls
+require! \./../EventName
 
-textureButton = PIXI.Texture.fromImage \_assets/button.png
-textureButtonDown = PIXI.Texture.fromImage \_assets/buttonDown.png
-textureButtonOver = PIXI.Texture.fromImage \_assets/buttonOver.png
+texture-button = PIXI.Texture.fromImage \_assets/button.png
+texture-button-down = PIXI.Texture.fromImage \_assets/buttonDown.png
+texture-button-over = PIXI.Texture.fromImage \_assets/buttonOver.png
 
 class LeftButtonView extends PIXI.Sprite
-  ->
-    PIXI.Sprite.call this, textureButton
+  !->
+    super texture-button
 
-    @y = 550;
-
-    @buttonMode = true;
+    @button-mode = true;
     @interactive = true;
 
-    @on "mouseup", onButtonUp
-        .on "touchend", onButtonUp
-        .on "mouseupoutside", onButtonUp
-        .on "touchendoutside", onButtonUp
-        .on "mouseover", onButtonOver
-        .on "mouseout", onButtonOut
-        .on "mousedown", onButtonDown
-        .on "touchstart", onButtonDown
+    @on \mouseup, @on-button-up
+    .on \touchend, @on-button-up
+    .on \mouseupoutside, @on-button-up
+    .on \touchendoutside, @on-button-up
+    .on \mouseover, @on-button-over
+    .on \mouseout, @on-button-out
+    .on \mousedown, @on-button-down
+    .on \touchstart, @on-button-down
 
-!function onButtonDown 
-  @texture = textureButtonDown
-  @emit(EventName.BUTTON_CLICK)
+  on-button-down: !-> 
+    @texture = texture-button-down
+    console.log("kkkkk:",EventName.BUTTON_CLICK);
+    @emit EventName.BUTTON_CLICK
 
-!function onButtonUp
-  @isdown = false
-  if @isOver
-    @texture = textureButtonOver
-  else
-    @texture = textureButton
+  on-button-up: !->
+    @is-down = false
+    @texture = if @is-over then texture-button-over else texture-button
 
-!function onButtonOver
-  @isOver = true
-  if @isdown
-    return
-  @texture = textureButtonOver
+  on-button-over: !->
+    @is-over = true
+    return if @is-down
+    @texture = texture-button-over
 
-!function onButtonOut
-  @isOver = false
-  if @isdown
-    return
-  @texture = textureButton
+  on-button-out: !->
+    @is-over = false
+    return if @is-down
+    @texture = texture-button
 
 module.exports = LeftButtonView;
