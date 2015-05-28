@@ -44,24 +44,8 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/*GameUI = require "./GameUI"
-	StartApplication = require "./StartApplication"
-	require "../Background.css"
-
-	renderer = PIXI.autoDetectRenderer 1000, 800, { alpha:0 }
-	document.body.appendChild renderer.view
-
-	GameUI = new GameUI();
-
-	animate!
-
-	animate = !-> 
-	  renderer.render GameUI
-	  requestAnimationFrame animate
-
-	app = new StartApplication GameUI*/
 	var Background, EventName, GameUI, StartApplication, renderer, gameUi, app;
-	Background = __webpack_require__(4);
+	Background = __webpack_require__(6);
 	EventName = __webpack_require__(1);
 	GameUI = __webpack_require__(2);
 	StartApplication = __webpack_require__(3);
@@ -90,8 +74,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var LeftButtonView, RightButtonView, ReelView, GameUI;
-	LeftButtonView = __webpack_require__(6);
-	RightButtonView = __webpack_require__(7);
+	LeftButtonView = __webpack_require__(4);
+	RightButtonView = __webpack_require__(5);
 	ReelView = __webpack_require__(8);
 	GameUI = (function(superclass){
 	  var prototype = extend$((import$(GameUI, superclass).displayName = 'GameUI', GameUI), superclass).prototype, constructor = GameUI;
@@ -152,36 +136,6 @@
 /* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(5);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(12)(content, {});
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		module.hot.accept("!!./../node_modules/css-loader/index.js!./Background.css", function() {
-			var newContent = require("!!./../node_modules/css-loader/index.js!./Background.css");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 5 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(13)();
-	exports.push([module.id, "body {\n  background-color: #d0e4fe;\n}", ""]);
-
-/***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
 	var EventName, textureButton, textureButtonDown, textureButtonOver, LeftButtonView;
 	EventName = __webpack_require__(1);
 	textureButton = PIXI.Texture.fromImage('_assets/button.png');
@@ -233,7 +187,7 @@
 	}
 
 /***/ },
-/* 7 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var EventName, RightButtonView;
@@ -294,6 +248,36 @@
 	  for (var key in src) if (own.call(src, key)) obj[key] = src[key];
 	  return obj;
 	}
+
+/***/ },
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(7);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(12)(content, {});
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		module.hot.accept("!!./../node_modules/css-loader/index.js!./Background.css", function() {
+			var newContent = require("!!./../node_modules/css-loader/index.js!./Background.css");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(13)();
+	exports.push([module.id, "body {\n  background-color: #d0e4fe;\n}", ""]);
 
 /***/ },
 /* 8 */
