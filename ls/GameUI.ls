@@ -1,20 +1,26 @@
 require! {
   \./view/LeftButtonView
   \./view/RightButtonView
+  \./view/ReelView
 }
 class GameUI extends PIXI.Container
   !->
     super!
 
-    left-button-view = new LeftButtonView!
+    @left-button-view = new LeftButtonView!
       ..x = 5
-      ..y = 300
-    @add-child left-button-view
+      ..y = 500
+    @add-child @left-button-view
 
 
-    right-button-view = new RightButtonView!
+    @right-button-view = new RightButtonView!
       ..x = 500
       ..y = 500
-    @add-child right-button-view  
+    @add-child @right-button-view 
 
-module.exports = GameUI;
+    @reel-view = new ReelView!
+      ..x = 0
+      ..y = 0
+    @add-child @reel-view 
+
+module.exports = GameUI

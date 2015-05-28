@@ -17,12 +17,11 @@ class LeftButtonView extends PIXI.Sprite
     .on \touchendoutside, @on-button-up
     .on \mouseover, @on-button-over
     .on \mouseout, @on-button-out
-    .on \mousedown, @on-button-down
-    .on \touchstart, @on-button-down
+    .on \mousedown, @on-button-downaa
+    .on \touchstart, @on-button-downaa
 
-  on-button-down: !-> 
+  on-button-downaa: !-> 
     @texture = texture-button-down
-    console.log("kkkkk:",EventName.BUTTON_CLICK);
     @emit EventName.BUTTON_CLICK
 
   on-button-up: !->
@@ -39,4 +38,4 @@ class LeftButtonView extends PIXI.Sprite
     return if @is-down
     @texture = texture-button
 
-module.exports = LeftButtonView;
+module.exports = LeftButtonView

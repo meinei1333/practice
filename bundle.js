@@ -60,10 +60,11 @@
 	  requestAnimationFrame animate
 
 	app = new StartApplication GameUI*/
-	var Background, EventName, GameUI, renderer, gameUi;
-	Background = __webpack_require__(3);
+	var Background, EventName, GameUI, StartApplication, renderer, gameUi, app;
+	Background = __webpack_require__(4);
 	EventName = __webpack_require__(1);
 	GameUI = __webpack_require__(2);
+	StartApplication = __webpack_require__(3);
 	renderer = PIXI.autoDetectRenderer(1000, 800, {
 	  alpha: 0
 	});
@@ -73,6 +74,7 @@
 	  renderer.render(gameUi);
 	  requestAnimationFrame(animate);
 	} animate();
+	app = new StartApplication(gameUi);
 
 /***/ },
 /* 1 */
@@ -87,22 +89,27 @@
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var LeftButtonView, RightButtonView, GameUI;
-	LeftButtonView = __webpack_require__(5);
-	RightButtonView = __webpack_require__(6);
+	var LeftButtonView, RightButtonView, ReelView, GameUI;
+	LeftButtonView = __webpack_require__(6);
+	RightButtonView = __webpack_require__(7);
+	ReelView = __webpack_require__(8);
 	GameUI = (function(superclass){
 	  var prototype = extend$((import$(GameUI, superclass).displayName = 'GameUI', GameUI), superclass).prototype, constructor = GameUI;
 	  function GameUI(){
-	    var x$, leftButtonView, y$, rightButtonView;
+	    var x$, y$, z$;
 	    GameUI.superclass.call(this);
-	    x$ = leftButtonView = new LeftButtonView();
+	    x$ = this.leftButtonView = new LeftButtonView();
 	    x$.x = 5;
-	    x$.y = 300;
-	    this.addChild(leftButtonView);
-	    y$ = rightButtonView = new RightButtonView();
+	    x$.y = 500;
+	    this.addChild(this.leftButtonView);
+	    y$ = this.rightButtonView = new RightButtonView();
 	    y$.x = 500;
 	    y$.y = 500;
-	    this.addChild(rightButtonView);
+	    this.addChild(this.rightButtonView);
+	    z$ = this.reelView = new ReelView();
+	    z$.x = 0;
+	    z$.y = 0;
+	    this.addChild(this.reelView);
 	  }
 	  return GameUI;
 	}(PIXI.Container));
@@ -123,13 +130,35 @@
 /* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var EventName, LeftButtonMediator, RightButtonMediator, ReelMediator, StartApplication;
+	EventName = __webpack_require__(1);
+	LeftButtonMediator = __webpack_require__(9);
+	RightButtonMediator = __webpack_require__(10);
+	ReelMediator = __webpack_require__(11);
+	StartApplication = soma.Application.extend({
+	  constructor: function(gameUi){
+	    this.gameUi = gameUi;
+	    soma.Application.call(this);
+	  },
+	  init: function(){
+	    this.mediators.create(LeftButtonMediator, this.gameUi.leftButtonView);
+	    this.mediators.create(RightButtonMediator, this.gameUi.rightButtonView);
+	    this.mediators.create(ReelMediator, this.gameUi.reelView);
+	  }
+	});
+	module.exports = StartApplication;
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(4);
+	var content = __webpack_require__(5);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(7)(content, {});
+	var update = __webpack_require__(12)(content, {});
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
@@ -143,14 +172,14 @@
 	}
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(8)();
+	exports = module.exports = __webpack_require__(13)();
 	exports.push([module.id, "body {\n  background-color: #d0e4fe;\n}", ""]);
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var EventName, textureButton, textureButtonDown, textureButtonOver, LeftButtonView;
@@ -164,11 +193,10 @@
 	    LeftButtonView.superclass.call(this, textureButton);
 	    this.buttonMode = true;
 	    this.interactive = true;
-	    this.on('mouseup', this.onButtonUp).on('touchend', this.onButtonUp).on('mouseupoutside', this.onButtonUp).on('touchendoutside', this.onButtonUp).on('mouseover', this.onButtonOver).on('mouseout', this.onButtonOut).on('mousedown', this.onButtonDown).on('touchstart', this.onButtonDown);
+	    this.on('mouseup', this.onButtonUp).on('touchend', this.onButtonUp).on('mouseupoutside', this.onButtonUp).on('touchendoutside', this.onButtonUp).on('mouseover', this.onButtonOver).on('mouseout', this.onButtonOut).on('mousedown', this.onButtonDownaa).on('touchstart', this.onButtonDownaa);
 	  }
-	  prototype.onButtonDown = function(){
+	  prototype.onButtonDownaa = function(){
 	    this.texture = textureButtonDown;
-	    console.log("kkkkk:", EventName.BUTTON_CLICK);
 	    this.emit(EventName.BUTTON_CLICK);
 	  };
 	  prototype.onButtonUp = function(){
@@ -205,7 +233,7 @@
 	}
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var EventName, RightButtonView;
@@ -221,36 +249,35 @@
 	    this.endFill();
 	    this.buttonMode = true;
 	    this.interactive = true;
-	    this.on('mouseup', this.onButtonUp).on('touchend', this.onButtonUp).on('mouseupoutside', this.onButtonUp).on('touchendoutside', this.onButtonUp).on('mouseover', this.onButtonOver).on('mouseout', this.onButtonOut).on('mousedown', this.onButtonDown).on('touchstart', this.onButtonDown);
+	    this.on('mouseup', this.onButtonUp).on('touchend', this.onButtonUp).on('mouseupoutside', this.onButtonUp).on('touchendoutside', this.onButtonUp).on('mouseover', this.onButtonOver).on('mouseout', this.onButtonOut).on('mousedown', this.onButtonDownbb).on('touchstart', this.onButtonDownbb);
 	  }
-	  prototype.onButtonDown = function(){
+	  prototype.onButtonDownbb = function(){
 	    this.clear();
 	    this.lineStyle(0);
 	    this.beginFill(0xFFFFFF, 0.5);
-	    this.drawCircle(this.radius / 2, this.radius / 2, this.radius / 2);
+	    this.drawCircle(this.radius * 0.5, this.radius * 0.5, this.radius * 0.5);
 	    this.endFill();
 	    this.emit(EventName.BUTTON_CLICK);
 	  };
 	  prototype.onButtonUp = function(){
-	    console.log(this + " this");
 	    this.clear();
 	    this.lineStyle(0);
 	    this.beginFill(0xFFFFFF, 0.5);
-	    this.drawCircle(this.radius / 2, this.radius / 2, this.radius / 2);
+	    this.drawCircle(this.radius * 0.5, this.radius * 0.5, this.radius * 0.5);
 	    this.endFill();
 	  };
 	  prototype.onButtonOver = function(){
 	    this.clear();
 	    this.lineStyle(0);
 	    this.beginFill(0xFFFFFF, 0.5);
-	    this.drawCircle(this.radius / 2, this.radius / 2, this.radius / 2);
+	    this.drawCircle(this.radius * 0.5, this.radius * 0.5, this.radius * 0.5);
 	    this.endFill();
 	  };
 	  prototype.onButtonOut = function(){
 	    this.clear();
 	    this.lineStyle(0);
 	    this.beginFill(0xFFFF08, 0.5);
-	    this.drawCircle(this.radius / 2, this.radius / 2, this.radius / 2);
+	    this.drawCircle(this.radius * 0.5, this.radius * 0.5, this.radius * 0.5);
 	    this.endFill();
 	  };
 	  return RightButtonView;
@@ -269,7 +296,118 @@
 	}
 
 /***/ },
-/* 7 */
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var ReelView;
+	ReelView = (function(superclass){
+	  var prototype = extend$((import$(ReelView, superclass).displayName = 'ReelView', ReelView), superclass).prototype, constructor = ReelView;
+	  function ReelView(){
+	    ReelView.superclass.call(this);
+	    this.lineStyle(2, 0xFF00FF, 1);
+	    this.beginFill(0xFF00BB, 0.25);
+	    this.drawRoundedRect(0, 0, 600, 500, 10);
+	    this.endFill();
+	  }
+	  prototype.resize = function(){
+	    var width;
+	    width = this.width === 100 ? 600 : 100;
+	    TweenLite.to(this, 1.5, {
+	      'width': width
+	    });
+	  };
+	  return ReelView;
+	}(PIXI.Graphics));
+	module.exports = ReelView;
+	function extend$(sub, sup){
+	  function fun(){} fun.prototype = (sub.superclass = sup).prototype;
+	  (sub.prototype = new fun).constructor = sub;
+	  if (typeof sup.extended == 'function') sup.extended(sub);
+	  return sub;
+	}
+	function import$(obj, src){
+	  var own = {}.hasOwnProperty;
+	  for (var key in src) if (own.call(src, key)) obj[key] = src[key];
+	  return obj;
+	}
+
+/***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var EventName, LeftButtonMediator;
+	EventName = __webpack_require__(1);
+	LeftButtonMediator = (function(){
+	  LeftButtonMediator.displayName = 'LeftButtonMediator';
+	  var prototype = LeftButtonMediator.prototype, constructor = LeftButtonMediator;
+	  function LeftButtonMediator(target, dispatcher){
+	    this.onButtonDown = bind$(this, 'onButtonDown', prototype);
+	    this.target = target;
+	    this.dispatcher = dispatcher;
+	    this.target.on(EventName.BUTTON_CLICK, this.onButtonDown);
+	  }
+	  prototype.onButtonDown = function(){
+	    this.dispatcher.dispatch(EventName.REEL_RESIZE);
+	  };
+	  return LeftButtonMediator;
+	}());
+	module.exports = LeftButtonMediator;
+	function bind$(obj, key, target){
+	  return function(){ return (target || obj)[key].apply(obj, arguments) };
+	}
+
+/***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var EventName, RightButtonView;
+	EventName = __webpack_require__(1);
+	RightButtonView = (function(){
+	  RightButtonView.displayName = 'RightButtonView';
+	  var prototype = RightButtonView.prototype, constructor = RightButtonView;
+	  function RightButtonView(target, dispatcher){
+	    this.onButtonDown = bind$(this, 'onButtonDown', prototype);
+	    this.target = target;
+	    this.dispatcher = dispatcher;
+	    this.target.on(EventName.BUTTON_CLICK, this.onButtonDown);
+	  }
+	  prototype.onButtonDown = function(){
+	    this.dispatcher.dispatch(EventName.REEL_RESIZE);
+	  };
+	  return RightButtonView;
+	}());
+	module.exports = RightButtonView;
+	function bind$(obj, key, target){
+	  return function(){ return (target || obj)[key].apply(obj, arguments) };
+	}
+
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var EventName, ReelMediator;
+	EventName = __webpack_require__(1);
+	ReelMediator = (function(){
+	  ReelMediator.displayName = 'ReelMediator';
+	  var prototype = ReelMediator.prototype, constructor = ReelMediator;
+	  function ReelMediator(target, dispatcher){
+	    this.doResize = bind$(this, 'doResize', prototype);
+	    this.target = target;
+	    this.dispatcher = dispatcher;
+	    this.dispatcher.addEventListener(EventName.REEL_RESIZE, this.doResize);
+	  }
+	  prototype.doResize = function(){
+	    this.target.resize();
+	  };
+	  return ReelMediator;
+	}());
+	module.exports = ReelMediator;
+	function bind$(obj, key, target){
+	  return function(){ return (target || obj)[key].apply(obj, arguments) };
+	}
+
+/***/ },
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -493,7 +631,7 @@
 
 
 /***/ },
-/* 8 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
