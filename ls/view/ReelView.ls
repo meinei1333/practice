@@ -1,4 +1,4 @@
-class ReelView extends PIXI.Graphics
+module.exports = class ReelView extends PIXI.Graphics
   !->
     super!
 
@@ -9,6 +9,4 @@ class ReelView extends PIXI.Graphics
 
   resize: !->
     width = if @width is 100 then 600 else 100
-    TweenLite.to @, 1.5, {\width :width}
-
-module.exports = ReelView
+    TweenLite.to @, 1.5s, {width: width}

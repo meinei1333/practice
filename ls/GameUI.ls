@@ -3,7 +3,7 @@ require! {
   \./view/RightButtonView
   \./view/ReelView
 }
-class GameUI extends PIXI.Container
+module.exports =  class GameUI extends PIXI.Container
   !->
     super!
 
@@ -21,6 +21,4 @@ class GameUI extends PIXI.Container
     @reel-view = new ReelView!
       ..x = 0
       ..y = 0
-    @add-child @reel-view 
-
-module.exports = GameUI
+    @add-child @reel-view

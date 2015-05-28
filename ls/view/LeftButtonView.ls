@@ -4,12 +4,12 @@ texture-button = PIXI.Texture.fromImage \_assets/button.png
 texture-button-down = PIXI.Texture.fromImage \_assets/buttonDown.png
 texture-button-over = PIXI.Texture.fromImage \_assets/buttonOver.png
 
-class LeftButtonView extends PIXI.Sprite
+module.exports = class LeftButtonView extends PIXI.Sprite
   !->
     super texture-button
 
-    @button-mode = true;
-    @interactive = true;
+    @button-mode = true
+    @interactive = true
 
     @on \mouseup, @on-button-up
     .on \touchend, @on-button-up
@@ -17,10 +17,10 @@ class LeftButtonView extends PIXI.Sprite
     .on \touchendoutside, @on-button-up
     .on \mouseover, @on-button-over
     .on \mouseout, @on-button-out
-    .on \mousedown, @on-button-downaa
-    .on \touchstart, @on-button-downaa
+    .on \mousedown, @on-button-down
+    .on \touchstart, @on-button-down
 
-  on-button-downaa: !-> 
+  on-button-down: !-> 
     @texture = texture-button-down
     @emit EventName.BUTTON_CLICK
 
@@ -37,5 +37,3 @@ class LeftButtonView extends PIXI.Sprite
     @is-over = false
     return if @is-down
     @texture = texture-button
-
-module.exports = LeftButtonView

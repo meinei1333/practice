@@ -1,6 +1,6 @@
 require! \./../EventName
 
-class RightButtonView extends PIXI.Graphics
+module.exports = class RightButtonView extends PIXI.Graphics
   !->
     
     super!
@@ -19,10 +19,10 @@ class RightButtonView extends PIXI.Graphics
     .on \touchendoutside @on-button-up
     .on \mouseover @on-button-over
     .on \mouseout @on-button-out
-    .on \mousedown @on-button-downbb
-    .on \touchstart @on-button-downbb
+    .on \mousedown @on-button-down
+    .on \touchstart @on-button-down
 
-  on-button-downbb: !->
+  on-button-down: !->
     @clear!
     @line-style 0
     @begin-fill 0xFFFFFF 0.5
@@ -51,5 +51,3 @@ class RightButtonView extends PIXI.Graphics
     @begin-fill 0xFFFF08 0.5
     @draw-circle @radius * 0.5, @radius * 0.5, @radius * 0.5
     @end-fill!
-
-module.exports = RightButtonView

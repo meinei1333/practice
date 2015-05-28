@@ -45,7 +45,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var Background, EventName, GameUI, StartApplication, renderer, gameUi, app;
-	Background = __webpack_require__(6);
+	Background = __webpack_require__(4);
 	EventName = __webpack_require__(1);
 	GameUI = __webpack_require__(2);
 	StartApplication = __webpack_require__(3);
@@ -74,10 +74,10 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var LeftButtonView, RightButtonView, ReelView, GameUI;
-	LeftButtonView = __webpack_require__(4);
-	RightButtonView = __webpack_require__(5);
-	ReelView = __webpack_require__(8);
-	GameUI = (function(superclass){
+	LeftButtonView = __webpack_require__(9);
+	RightButtonView = __webpack_require__(10);
+	ReelView = __webpack_require__(11);
+	module.exports = GameUI = (function(superclass){
 	  var prototype = extend$((import$(GameUI, superclass).displayName = 'GameUI', GameUI), superclass).prototype, constructor = GameUI;
 	  function GameUI(){
 	    var x$, y$, z$;
@@ -97,7 +97,6 @@
 	  }
 	  return GameUI;
 	}(PIXI.Container));
-	module.exports = GameUI;
 	function extend$(sub, sup){
 	  function fun(){} fun.prototype = (sub.superclass = sup).prototype;
 	  (sub.prototype = new fun).constructor = sub;
@@ -116,24 +115,138 @@
 
 	var EventName, LeftButtonMediator, RightButtonMediator, ReelMediator, StartApplication;
 	EventName = __webpack_require__(1);
-	LeftButtonMediator = __webpack_require__(9);
-	RightButtonMediator = __webpack_require__(10);
-	ReelMediator = __webpack_require__(11);
-	StartApplication = soma.Application.extend({
-	  constructor: function(gameUi){
+	LeftButtonMediator = __webpack_require__(6);
+	RightButtonMediator = __webpack_require__(7);
+	ReelMediator = __webpack_require__(8);
+	module.exports = StartApplication = (function(superclass){
+	  var prototype = extend$((import$(StartApplication, superclass).displayName = 'StartApplication', StartApplication), superclass).prototype, constructor = StartApplication;
+	  function StartApplication(gameUi){
 	    this.gameUi = gameUi;
 	    soma.Application.call(this);
-	  },
-	  init: function(){
+	  }
+	  prototype.init = function(){
 	    this.mediators.create(LeftButtonMediator, this.gameUi.leftButtonView);
 	    this.mediators.create(RightButtonMediator, this.gameUi.rightButtonView);
 	    this.mediators.create(ReelMediator, this.gameUi.reelView);
-	  }
-	});
-	module.exports = StartApplication;
+	  };
+	  return StartApplication;
+	}(soma.Application));
+	function extend$(sub, sup){
+	  function fun(){} fun.prototype = (sub.superclass = sup).prototype;
+	  (sub.prototype = new fun).constructor = sub;
+	  if (typeof sup.extended == 'function') sup.extended(sub);
+	  return sub;
+	}
+	function import$(obj, src){
+	  var own = {}.hasOwnProperty;
+	  for (var key in src) if (own.call(src, key)) obj[key] = src[key];
+	  return obj;
+	}
 
 /***/ },
 /* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(5);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(12)(content, {});
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		module.hot.accept("!!./../node_modules/css-loader/index.js!./Background.css", function() {
+			var newContent = require("!!./../node_modules/css-loader/index.js!./Background.css");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(13)();
+	exports.push([module.id, "body {\n  background-color: #d0e4fe;\n}", ""]);
+
+/***/ },
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var EventName, LeftButtonMediator;
+	EventName = __webpack_require__(1);
+	module.exports = LeftButtonMediator = (function(){
+	  LeftButtonMediator.displayName = 'LeftButtonMediator';
+	  var prototype = LeftButtonMediator.prototype, constructor = LeftButtonMediator;
+	  function LeftButtonMediator(target, dispatcher){
+	    this.dispatcher = dispatcher;
+	    this.onButtonDown = bind$(this, 'onButtonDown', prototype);
+	    this.leftButton = target;
+	    this.leftButton.on(EventName.BUTTON_CLICK, this.onButtonDown);
+	  }
+	  prototype.onButtonDown = function(){
+	    this.dispatcher.dispatch(EventName.REEL_RESIZE);
+	  };
+	  return LeftButtonMediator;
+	}());
+	function bind$(obj, key, target){
+	  return function(){ return (target || obj)[key].apply(obj, arguments) };
+	}
+
+/***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var EventName, RightButtonView;
+	EventName = __webpack_require__(1);
+	module.exports = RightButtonView = (function(){
+	  RightButtonView.displayName = 'RightButtonView';
+	  var prototype = RightButtonView.prototype, constructor = RightButtonView;
+	  function RightButtonView(target, dispatcher){
+	    this.dispatcher = dispatcher;
+	    this.onButtonDown = bind$(this, 'onButtonDown', prototype);
+	    this.rightButton = target;
+	    this.rightButton.on(EventName.BUTTON_CLICK, this.onButtonDown);
+	  }
+	  prototype.onButtonDown = function(){
+	    this.dispatcher.dispatch(EventName.REEL_RESIZE);
+	  };
+	  return RightButtonView;
+	}());
+	function bind$(obj, key, target){
+	  return function(){ return (target || obj)[key].apply(obj, arguments) };
+	}
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var EventName, ReelMediator;
+	EventName = __webpack_require__(1);
+	module.exports = ReelMediator = (function(){
+	  ReelMediator.displayName = 'ReelMediator';
+	  var prototype = ReelMediator.prototype, constructor = ReelMediator;
+	  function ReelMediator(target, dispatcher){
+	    this.dispatcher = dispatcher;
+	    this.doResize = bind$(this, 'doResize', prototype);
+	    this.reel = target;
+	    this.dispatcher.addEventListener(EventName.REEL_RESIZE, this.doResize);
+	  }
+	  prototype.doResize = function(){
+	    this.reel.resize();
+	  };
+	  return ReelMediator;
+	}());
+	function bind$(obj, key, target){
+	  return function(){ return (target || obj)[key].apply(obj, arguments) };
+	}
+
+/***/ },
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var EventName, textureButton, textureButtonDown, textureButtonOver, LeftButtonView;
@@ -141,15 +254,15 @@
 	textureButton = PIXI.Texture.fromImage('_assets/button.png');
 	textureButtonDown = PIXI.Texture.fromImage('_assets/buttonDown.png');
 	textureButtonOver = PIXI.Texture.fromImage('_assets/buttonOver.png');
-	LeftButtonView = (function(superclass){
+	module.exports = LeftButtonView = (function(superclass){
 	  var prototype = extend$((import$(LeftButtonView, superclass).displayName = 'LeftButtonView', LeftButtonView), superclass).prototype, constructor = LeftButtonView;
 	  function LeftButtonView(){
 	    LeftButtonView.superclass.call(this, textureButton);
 	    this.buttonMode = true;
 	    this.interactive = true;
-	    this.on('mouseup', this.onButtonUp).on('touchend', this.onButtonUp).on('mouseupoutside', this.onButtonUp).on('touchendoutside', this.onButtonUp).on('mouseover', this.onButtonOver).on('mouseout', this.onButtonOut).on('mousedown', this.onButtonDownaa).on('touchstart', this.onButtonDownaa);
+	    this.on('mouseup', this.onButtonUp).on('touchend', this.onButtonUp).on('mouseupoutside', this.onButtonUp).on('touchendoutside', this.onButtonUp).on('mouseover', this.onButtonOver).on('mouseout', this.onButtonOut).on('mousedown', this.onButtonDown).on('touchstart', this.onButtonDown);
 	  }
-	  prototype.onButtonDownaa = function(){
+	  prototype.onButtonDown = function(){
 	    this.texture = textureButtonDown;
 	    this.emit(EventName.BUTTON_CLICK);
 	  };
@@ -173,7 +286,6 @@
 	  };
 	  return LeftButtonView;
 	}(PIXI.Sprite));
-	module.exports = LeftButtonView;
 	function extend$(sub, sup){
 	  function fun(){} fun.prototype = (sub.superclass = sup).prototype;
 	  (sub.prototype = new fun).constructor = sub;
@@ -187,12 +299,12 @@
 	}
 
 /***/ },
-/* 5 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var EventName, RightButtonView;
 	EventName = __webpack_require__(1);
-	RightButtonView = (function(superclass){
+	module.exports = RightButtonView = (function(superclass){
 	  var prototype = extend$((import$(RightButtonView, superclass).displayName = 'RightButtonView', RightButtonView), superclass).prototype, constructor = RightButtonView;
 	  function RightButtonView(){
 	    RightButtonView.superclass.call(this);
@@ -203,9 +315,9 @@
 	    this.endFill();
 	    this.buttonMode = true;
 	    this.interactive = true;
-	    this.on('mouseup', this.onButtonUp).on('touchend', this.onButtonUp).on('mouseupoutside', this.onButtonUp).on('touchendoutside', this.onButtonUp).on('mouseover', this.onButtonOver).on('mouseout', this.onButtonOut).on('mousedown', this.onButtonDownbb).on('touchstart', this.onButtonDownbb);
+	    this.on('mouseup', this.onButtonUp).on('touchend', this.onButtonUp).on('mouseupoutside', this.onButtonUp).on('touchendoutside', this.onButtonUp).on('mouseover', this.onButtonOver).on('mouseout', this.onButtonOut).on('mousedown', this.onButtonDown).on('touchstart', this.onButtonDown);
 	  }
-	  prototype.onButtonDownbb = function(){
+	  prototype.onButtonDown = function(){
 	    this.clear();
 	    this.lineStyle(0);
 	    this.beginFill(0xFFFFFF, 0.5);
@@ -236,7 +348,6 @@
 	  };
 	  return RightButtonView;
 	}(PIXI.Graphics));
-	module.exports = RightButtonView;
 	function extend$(sub, sup){
 	  function fun(){} fun.prototype = (sub.superclass = sup).prototype;
 	  (sub.prototype = new fun).constructor = sub;
@@ -250,41 +361,11 @@
 	}
 
 /***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(7);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(12)(content, {});
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		module.hot.accept("!!./../node_modules/css-loader/index.js!./Background.css", function() {
-			var newContent = require("!!./../node_modules/css-loader/index.js!./Background.css");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 7 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(13)();
-	exports.push([module.id, "body {\n  background-color: #d0e4fe;\n}", ""]);
-
-/***/ },
-/* 8 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var ReelView;
-	ReelView = (function(superclass){
+	module.exports = ReelView = (function(superclass){
 	  var prototype = extend$((import$(ReelView, superclass).displayName = 'ReelView', ReelView), superclass).prototype, constructor = ReelView;
 	  function ReelView(){
 	    ReelView.superclass.call(this);
@@ -297,12 +378,11 @@
 	    var width;
 	    width = this.width === 100 ? 600 : 100;
 	    TweenLite.to(this, 1.5, {
-	      'width': width
+	      width: width
 	    });
 	  };
 	  return ReelView;
 	}(PIXI.Graphics));
-	module.exports = ReelView;
 	function extend$(sub, sup){
 	  function fun(){} fun.prototype = (sub.superclass = sup).prototype;
 	  (sub.prototype = new fun).constructor = sub;
@@ -313,81 +393,6 @@
 	  var own = {}.hasOwnProperty;
 	  for (var key in src) if (own.call(src, key)) obj[key] = src[key];
 	  return obj;
-	}
-
-/***/ },
-/* 9 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var EventName, LeftButtonMediator;
-	EventName = __webpack_require__(1);
-	LeftButtonMediator = (function(){
-	  LeftButtonMediator.displayName = 'LeftButtonMediator';
-	  var prototype = LeftButtonMediator.prototype, constructor = LeftButtonMediator;
-	  function LeftButtonMediator(target, dispatcher){
-	    this.onButtonDown = bind$(this, 'onButtonDown', prototype);
-	    this.target = target;
-	    this.dispatcher = dispatcher;
-	    this.target.on(EventName.BUTTON_CLICK, this.onButtonDown);
-	  }
-	  prototype.onButtonDown = function(){
-	    this.dispatcher.dispatch(EventName.REEL_RESIZE);
-	  };
-	  return LeftButtonMediator;
-	}());
-	module.exports = LeftButtonMediator;
-	function bind$(obj, key, target){
-	  return function(){ return (target || obj)[key].apply(obj, arguments) };
-	}
-
-/***/ },
-/* 10 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var EventName, RightButtonView;
-	EventName = __webpack_require__(1);
-	RightButtonView = (function(){
-	  RightButtonView.displayName = 'RightButtonView';
-	  var prototype = RightButtonView.prototype, constructor = RightButtonView;
-	  function RightButtonView(target, dispatcher){
-	    this.onButtonDown = bind$(this, 'onButtonDown', prototype);
-	    this.target = target;
-	    this.dispatcher = dispatcher;
-	    this.target.on(EventName.BUTTON_CLICK, this.onButtonDown);
-	  }
-	  prototype.onButtonDown = function(){
-	    this.dispatcher.dispatch(EventName.REEL_RESIZE);
-	  };
-	  return RightButtonView;
-	}());
-	module.exports = RightButtonView;
-	function bind$(obj, key, target){
-	  return function(){ return (target || obj)[key].apply(obj, arguments) };
-	}
-
-/***/ },
-/* 11 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var EventName, ReelMediator;
-	EventName = __webpack_require__(1);
-	ReelMediator = (function(){
-	  ReelMediator.displayName = 'ReelMediator';
-	  var prototype = ReelMediator.prototype, constructor = ReelMediator;
-	  function ReelMediator(target, dispatcher){
-	    this.doResize = bind$(this, 'doResize', prototype);
-	    this.target = target;
-	    this.dispatcher = dispatcher;
-	    this.dispatcher.addEventListener(EventName.REEL_RESIZE, this.doResize);
-	  }
-	  prototype.doResize = function(){
-	    this.target.resize();
-	  };
-	  return ReelMediator;
-	}());
-	module.exports = ReelMediator;
-	function bind$(obj, key, target){
-	  return function(){ return (target || obj)[key].apply(obj, arguments) };
 	}
 
 /***/ },

@@ -1,12 +1,8 @@
 require! \./../EventName
 
-class ReelMediator
-  (target, dispatcher) !->
-    @target = target
-    @dispatcher = dispatcher
+module.exports = class ReelMediator
+  (target, @dispatcher) !->
+    @reel = target
     @dispatcher.add-event-listener EventName.REEL_RESIZE, @do-resize
 
-  do-resize: !~>
-    @target.resize!
-
-module.exports = ReelMediator
+  do-resize: !~> @reel.resize!

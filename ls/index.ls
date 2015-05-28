@@ -12,6 +12,6 @@ game-ui = new GameUI!
 
 do !function animate
   renderer.render game-ui 
-  requestAnimationFrame animate;
+  requestAnimationFrame animate
 
 app = new StartApplication game-ui

@@ -5,16 +5,13 @@ require! {
   \./mediator/ReelMediator
 }
 
-StartApplication = soma.Application.extend(
+module.exports = class StartApplication extends soma.Application
 
-  constructor: (game-ui) !->
-    @game-ui = game-ui
+  (@game-ui) !->
     soma.Application.call @
 
   init: !->
     @mediators.create LeftButtonMediator, @game-ui.left-button-view
     @mediators.create RightButtonMediator, @game-ui.right-button-view
     @mediators.create ReelMediator, @game-ui.reel-view
-)
 
-module.exports = StartApplication
