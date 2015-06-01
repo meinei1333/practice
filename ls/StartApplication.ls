@@ -11,7 +11,8 @@ module.exports = class StartApplication extends soma.Application
     soma.Application.call @
 
   init: !->
-    @mediators.create LeftButtonMediator, @game-ui.left-button-view
-    @mediators.create RightButtonMediator, @game-ui.right-button-view
-    @mediators.create ReelMediator, @game-ui.reel-view
+    @mediators
+      ..create LeftButtonMediator, @game-ui.left-button-view
+      ..create RightButtonMediator, @game-ui.right-button-view
+      ..create ReelMediator, @game-ui.reel-view
 
