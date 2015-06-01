@@ -5,4 +5,6 @@ module.exports = class LeftButtonMediator
     @left-button = target
       ..on EventName.BUTTON_CLICK, @on-button-down
 
-  on-button-down: !~> @dispatcher.dispatch EventName.REEL_RESIZE
+    @dispatcher.addEventListener EventName.START_GAME, !~> @left-button.visible = true
+
+  on-button-down: !~> @dispatcher.dispatch EventName.LEFT_BUTTON_CLICK

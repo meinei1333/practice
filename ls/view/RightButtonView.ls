@@ -10,6 +10,8 @@ module.exports = class RightButtonView extends PIXI.Graphics
     @draw-circle @radius / 2 ,@radius / 2 ,@radius / 2
     @end-fill!
 
+    @visible = false
+    
     @button-mode = true
     @interactive = true
 

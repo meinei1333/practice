@@ -8,6 +8,8 @@ module.exports = class LeftButtonView extends PIXI.Sprite
   !->
     super texture-button
 
+    @visible = false
+    
     @button-mode = true
     @interactive = true
 

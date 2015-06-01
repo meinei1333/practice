@@ -5,4 +5,6 @@ module.exports = class RightButtonView
     @right-button = target
       ..on EventName.BUTTON_CLICK, @on-button-down
 
-  on-button-down: !~> @dispatcher.dispatch EventName.REEL_RESIZE
+    @dispatcher.addEventListener EventName.START_GAME, !~> @right-button.visible = true
+
+  on-button-down: !~> @dispatcher.dispatch EventName.RIGHT_BUTTON_CLICK
