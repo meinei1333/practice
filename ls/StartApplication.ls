@@ -11,8 +11,7 @@ require! {
 
 module.exports = class StartApplication extends soma.Application
 
-  (@game-ui) !->
-    soma.Application.call @
+  (@game-ui) !-> super!
 
   init: !->
     @mediators
@@ -20,7 +19,7 @@ module.exports = class StartApplication extends soma.Application
       ..create RightButtonMediator, @game-ui.right-button-view
       ..create ReelMediator, @game-ui.reel-view
 
-    @injector.mapClass "fakeServerModel", FakeServerModel, true
+    @injector.map-class "fakeServerModel", FakeServerModel, true
 
     @commands
       ..add EventName.INIT_GAME, InitGameCommand

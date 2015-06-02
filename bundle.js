@@ -130,7 +130,7 @@
 	  var prototype = extend$((import$(StartApplication, superclass).displayName = 'StartApplication', StartApplication), superclass).prototype, constructor = StartApplication;
 	  function StartApplication(gameUi){
 	    this.gameUi = gameUi;
-	    soma.Application.call(this);
+	    StartApplication.superclass.call(this);
 	  }
 	  prototype.init = function(){
 	    var x$, y$;
@@ -282,13 +282,13 @@
 	  prototype.startGame = function(){
 	    var this$ = this;
 	    setTimeout(function(){
-	      return this$.dispatcher.dispatch(EventName.START_GAME);
+	      this$.dispatcher.dispatch(EventName.START_GAME);
 	    }, 5000);
 	  };
 	  prototype.reelResize = function(){
 	    var this$ = this;
 	    setTimeout(function(){
-	      return this$.dispatcher.dispatch(EventName.REEL_RESIZE);
+	      this$.dispatcher.dispatch(EventName.REEL_RESIZE);
 	    }, 2000);
 	  };
 	  return FakeServerModel;
